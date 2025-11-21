@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমার প্রিয়তমার জন্য জন্মদিনের বিশেষ উপহার 💖</title>
+    <style>
+        /* CSS এর মাধ্যমে পেজটিকে সুন্দর করা হয়েছে */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            color: #4a4a4a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+            width: 500px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            color: #e57373;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            color: #6a6a6a;
+        }
+
+        #playButton {
+            background-color: #ffcc80;
+            color: #4a4a4a;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        #playButton:hover {
+            background-color: #ffb74d;
+            transform: scale(1.05);
+        }
+
+        /* ভিডিও এলিমেন্টকে প্রথমে লুকিয়ে রাখা হবে */
+        #birthdayVideo {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* ভিডিও পুরো স্ক্রিনে দেখানোর জন্য */
+            z-index: 1000;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="greetingContainer">
+        <h1>💖 শুভ জন্মদিন প্রিয়তমা! 💖</h1>
+        <p>আমার জীবনের আলো, আমার সবথেকে প্রিয় মানুষ, তোমাকে জন্মদিনের অনেক অনেক শুভেচ্ছা। তোমার জন্য আমার পক্ষ থেকে একটি ছোট্ট উপহার!</p>
+        <p>উপহারটি দেখতে নিচের বাটনটিতে ক্লিক করো:</p>
+        <button id="playButton">🌟 ভিডিওটি শুরু করো 🌟</button>
+    </div>
+
+    <video id="birthdayVideo" controls>
+        <source src="my_birthday_video.mp4" type="video/mp4">
+        আপনার ব্রাউজার ভিডিও সমর্থন করে না।
+    </video>
+
+    <script>
+        const playButton = document.getElementById('playButton');
+        const birthdayVideo = document.getElementById('birthdayVideo');
+        const greetingContainer = document.getElementById('greetingContainer');
+
+        playButton.addEventListener('click', () => {
+            // ১. শুভেচ্ছা বার্তাটি স্ক্রিন থেকে সরিয়ে দেবে
+            greetingContainer.style.display = 'none';
+
+            // ২. ভিডিওটিকে দেখাবে
+            birthdayVideo.style.display = 'block';
+
+            // ৩. ভিডিওটিকে ফুলস্ক্রিনে প্লে করবে (ব্রাউজারের অনুমতি সাপেক্ষে)
+            if (birthdayVideo.requestFullscreen) {
+                birthdayVideo.requestFullscreen();
+            } else if (birthdayVideo.mozRequestFullScreen) { /* Firefox */
+                birthdayVideo.mozRequestFullScreen();
+            } else if (birthdayVideo.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                birthdayVideo.webkitRequestFullscreen();
+            } else if (birthdayVideo.msRequestFullscreen) { /* IE/Edge */
+                birthdayVideo.msRequestFullscreen();
+            }
+            
+            // ৪. ভিডিও প্লে করা শুরু করবে
+            birthdayVideo.play();
+        });
+
+        // ভিডিও শেষ হলে কি হবে
+        birthdayVideo.addEventListener('ended', () => {
+             alert("শুভ জন্মদিন! 🎂🎉 তোমার জন্য আরও অনেক ভালোবাসা।");
+             // ফুলস্ক্রিন থেকে বেরিয়ে আসার জন্য
+             if (document.exitFullscreen) {
+                document.exitFullscreen();
+             }
+             // চাইলে আবার শুভেচ্ছা বার্তা দেখাতে পারেন
+             // greetingContainer.style.display = 'block';
+        });
+
+    </script>
+
+</body>
+</html>
